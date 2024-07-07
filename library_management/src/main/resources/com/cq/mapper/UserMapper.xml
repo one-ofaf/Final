@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cq.mapper.UserMapper">
+    <update id="update">
+        update user
+        <set>
+            <if test="userName != null and userName != ''">
+                Username = #{userName},
+            </if>
+            <if test="passWord != null and passWord != ''">
+                Password = #{passWord},
+            </if>
+            <if test="role != null and role != ''">
+                Role = #{role},
+            </if>
+        </set>
+        where UserID = #{userID}
+    </update>
+
+    <delete id="delete">
+        delete
+        from user
+        where user.UserID in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+</mapper>

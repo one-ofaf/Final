@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cq.mapper.BookMapper">
+    <update id="update">
+        UPDATE Book
+        <set>
+            <if test="title != null">Title = #{title},</if>
+            <if test="author != null">Author = #{author},</if>
+            <if test="isbn != null">ISBN = #{isbn},</if>
+            <if test="publishYear != null">PublishYear = #{publishYear},</if>
+            <if test="status != null">Status = #{status},</if>
+            <if test="image != null">image = #{image},</if>
+        </set>
+        WHERE BookID = #{bookID}
+    </update>
+
+    <delete id="delete">
+        delete
+        from book
+        where book.BookID in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+</mapper>
